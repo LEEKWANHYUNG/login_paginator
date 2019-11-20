@@ -1,11 +1,28 @@
-<h1>Make your Blog!</h1>
+{% extends 'base.html' %}
 
-{% for blog in blogs.all %}
-    <div class= "container">
-        <a href ="{% url 'detail' blog.id%}"><h2>{{blog.title}}</h2></a>
-       <p>{{blog.date}}</p>
-       <p>{{blog.summary}}</p>
+{% block content %}
+<h1>김홍래에 관한 블로그 made by 관형</h1>
 
-    </div>
+<div>
+    <button type="submit" class="btn btn-lg btn-muted" style="text-align: center;"> <a href="{% url 'new' %}"
+            style="color: black">글 작성하기</a> </button>
+</div>
+{% for post in posts.all %}
+<div class="container">
+    <a href="{% url 'detail' post.id%}" style="color: black;">
+        <h2>{{post.title}}</h2>
+    </a>
+    <p>{{post.date}}</p>     <!--이거 살짝 문제있는거 같음 뭔지는 모르겠음.-->
+    <p>{{post.summary}}</p>
+
+    <p>{{post.writer}}</p>
+
+
+</div>
+
+
+
 
 {% endfor %}
+
+{% endblock%}
