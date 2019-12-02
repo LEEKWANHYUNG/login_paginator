@@ -1,28 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>김홍래에 관한 블로그 made by 관형</h1>
+<body>
+
 
 <div>
     <button type="submit" class="btn btn-lg btn-muted" style="text-align: center;"> <a href="{% url 'new' %}"
             style="color: black">글 작성하기</a> </button>
 </div>
-{% for post in posts.all %}
 <div class="container">
-    <a href="{% url 'detail' post.id%}" style="color: black;">
-        <h2>{{post.title}}</h2>
-    </a>
-    <p>{{post.date}}</p>     <!--이거 살짝 문제있는거 같음 뭔지는 모르겠음.-->
-    <p>{{post.summary}}</p>
+    {% for post in posts %}
+    <div class="card">
+        <h5 class="card-header">{{post.title}}</h5>
+        <div class="card-body">
+            <h5 class="card-title">{{post.writer}}</h5>
+            <p class="card-text">{{post.body}}</p>
+            <a href="{% url 'detail' post.id %}" class="btn btn-primary">more..</a>
+        </div>
+    </div>
+    {% endfor %}
+    <div>
+        {% if posts.has_previous %}
+        <a href="?page={{posts.1}}"> 첫페이지</a>
+        <a href="?page={{posts.previous_page_number}}"> 이전 페이지</a>
 
-    <p>{{post.writer}}</p>
+        {% endif %}
 
+        <span> {{posts.number}}</span>
+        <span> of </span>
+        <span> {{posts.paginator.num_pages}} </span>
 
+        {% if posts.has_next %}
+        <a href="?page={{posts.next_page_number}}"> 다음페이지</a>
+        <a href="?page={{posts.paginator.num_page}}"> 마지막페이지</a>
+        {% endif %}
+    </div>
 </div>
-
-
-
-
-{% endfor %}
-
+    
+</body>
 {% endblock%}

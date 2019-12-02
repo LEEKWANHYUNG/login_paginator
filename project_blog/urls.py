@@ -22,5 +22,4 @@ urlpatterns = [
     path('', app_blog.views.home, name ='home'),
     path('app_blog/',include('app_blog.urls')),
     path( 'app_board/<int:post_id>',app_blog.views.detail,name="detail"),
-
 ]
